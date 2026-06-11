@@ -6,6 +6,8 @@ const LINKS = [
   ['/', 'Home'],
   ['/quiz', 'Find my gap'],
   ['/courses', 'Courses'],
+  ['/news', 'Trends & news'],
+  ['/resume', 'Resume check'],
   ['/consultancy', 'Salary paths'],
   ['/log', 'My journey'],
 ];

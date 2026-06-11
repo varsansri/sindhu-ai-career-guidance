@@ -1,5 +1,7 @@
 import './globals.css';
 import Nav from '@/components/Nav';
+import { CopilotProvider } from '@/components/CopilotContext';
+import Copilot from '@/components/Copilot';
 
 export const metadata = {
   title: "Sindhu's AI Career Guidance",
@@ -10,11 +12,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Nav />
-        <main className="min-h-screen">{children}</main>
-        <footer className="border-t border-line/60 mt-16 py-8 text-center text-mut text-sm">
-          © 2026 Sindhu&apos;s AI Career Guidance · Trend-based guidance for fresh graduates.
-        </footer>
+        <CopilotProvider>
+          <Nav />
+          {/* reserve right rail space on desktop for the co-pilot */}
+          <div className="lg:pr-[340px]">
+            <main className="min-h-screen">{children}</main>
+            <footer className="border-t border-line/60 mt-16 py-8 text-center text-mut text-sm">
+              © 2026 Sindhu&apos;s AI Career Guidance · Trend-based guidance for fresh graduates.
+            </footer>
+          </div>
+          <Copilot />
+        </CopilotProvider>
       </body>
     </html>
   );

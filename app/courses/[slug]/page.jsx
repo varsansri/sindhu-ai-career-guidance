@@ -4,6 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { COURSES, courseBySlug, allTopics, globalTopicKey } from '@/lib/courses';
 import { useStore, fmtINR, fmtLPA, computeWorth } from '@/lib/store';
+import { useCopilot } from '@/components/CopilotContext';
 
 function worthMap() {
   const m = {};
@@ -26,6 +27,14 @@ export default function CoursePage() {
   useEffect(() => {
     if (course) { setActiveSlug(course.units[0].topics[0].slug); setOpenUnits({ 0: true }); }
   }, [slug]);
+
+  const { setPageContext } = useCopilot();
+  useEffect(() => {
+    if (!course || !activeSlug) return;
+    const t = allTopics(course).find((x) => x.slug === activeSlug);
+    if (t) setPageContext(t.title, `Topic: ${t.title}\n${t.intro}\nConcepts: ${t.concepts.join(', ')}\nSteps: ${t.steps.join(' ')}`);
+    return () => setPageContext('', '');
+  }, [slug, activeSlug]);
 
   if (!course) {
     return <div className="mx-auto max-w-3xl px-4 py-20 text-center">
