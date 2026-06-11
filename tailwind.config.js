@@ -4,19 +4,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: '#0b1020',
-        panel: '#11182e',
-        card: '#161f3a',
-        line: '#26314f',
-        brand: '#5b8cff',
-        brand2: '#7c5cff',
-        gold: '#ffce4d',
-        green: '#2bd9a8',
-        mut: '#9aa6c7',
+        ink: '#060a07',        // green-black base
+        panel: '#0a1410',
+        card: '#0d1712',
+        line: '#1d2c23',
+        white: '#ffffff',
+        brand: '#1fe06a',      // neon green (primary accent)
+        brand2: '#c9f23e',     // acid lime (secondary accent)
+        green: '#1fe06a',
+        gold: '#c9f23e',
+        mint: '#2be3c0',
+        mut: '#9fb0a6',        // green-gray muted text
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+        display: ['"Clash Display"', '"Space Grotesk"', 'Inter', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
     },
   },

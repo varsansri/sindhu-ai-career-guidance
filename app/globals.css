@@ -4,59 +4,58 @@
 
 :root { color-scheme: dark; }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-html { background: #0b1020; }
-body { background: transparent; color: #e7ecff; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+html { background: #060a07; }
+body { background: transparent; color: #ffffff; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
 * { box-sizing: border-box; }
 
-::selection { background: #5b8cff; color: #fff; }
+::selection { background: #1fe06a; color: #06140c; }
 
-.font-display { font-family: 'Space Grotesk', Inter, sans-serif; }
+.font-display { font-family: 'Clash Display', 'Space Grotesk', Inter, sans-serif; letter-spacing: -0.01em; }
+.font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+.label { font-family: 'JetBrains Mono', ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.12em; }
 
-/* ── Liquid glass (inspired by liquid-glass-js): translucent + blur + edge highlight ── */
+/* ── Liquid glass (dashersw/liquid-glass-js look): blur + saturate + edge light ── */
 .liquid-glass, .card-grad {
+  position: relative;
   background:
-    radial-gradient(120% 120% at 0% 0%, rgba(91,140,255,0.16), transparent 55%),
-    radial-gradient(120% 120% at 100% 100%, rgba(124,92,255,0.16), transparent 55%),
-    rgba(18, 25, 48, 0.55);
-  backdrop-filter: blur(18px) saturate(1.5);
-  -webkit-backdrop-filter: blur(18px) saturate(1.5);
-  border: 1px solid rgba(160, 185, 255, 0.14);
+    radial-gradient(130% 130% at 0% 0%, rgba(31,224,106,0.12), transparent 55%),
+    radial-gradient(130% 130% at 100% 100%, rgba(201,242,62,0.10), transparent 55%),
+    rgba(10, 20, 14, 0.52);
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border: 1px solid rgba(150, 240, 180, 0.14);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.16),
-    inset 0 -1px 0 rgba(0,0,0,0.30),
-    0 22px 60px rgba(0,0,0,0.42);
+    inset 0 1px 0 rgba(255,255,255,0.14),
+    inset 0 -1px 0 rgba(0,0,0,0.4),
+    0 24px 64px rgba(0,0,0,0.5);
 }
-.glass-soft {
-  background: rgba(18, 25, 48, 0.42);
-  backdrop-filter: blur(14px) saturate(1.3);
-  -webkit-backdrop-filter: blur(14px) saturate(1.3);
-  border: 1px solid rgba(160,185,255,0.12);
-}
-.glow { box-shadow: 0 22px 60px rgba(0,0,0,0.45); }
+.glow { box-shadow: 0 0 0 1px rgba(31,224,106,0.18), 0 26px 70px rgba(0,0,0,0.55); }
+.glow-green { box-shadow: 0 0 28px rgba(31,224,106,0.45); }
 
-/* ── Liquid-metal logo (inspired by liquid-logo): animated chrome sheen ── */
+/* surfaces translucent over the shader */
+.bg-card { background-color: rgba(11,20,15,0.5) !important; backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+.bg-panel { background-color: rgba(7,14,10,0.66) !important; backdrop-filter: blur(20px) saturate(1.5); -webkit-backdrop-filter: blur(20px) saturate(1.5); }
+
+/* ── Liquid-metal logo (paper-design look) — green/lime/white chrome sheen on text ── */
 .liquid-logo {
-  background: linear-gradient(100deg, #cdd9ff 0%, #5b8cff 22%, #eaf0ff 40%, #7c5cff 60%, #aab9ff 78%, #5b8cff 100%);
+  background: linear-gradient(100deg, #eafff1 0%, #1fe06a 24%, #ffffff 42%, #c9f23e 62%, #9bffc0 80%, #1fe06a 100%);
   background-size: 280% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   animation: liquidSheen 6s linear infinite;
-  filter: drop-shadow(0 1px 6px rgba(91,140,255,0.35));
+  filter: drop-shadow(0 1px 8px rgba(31,224,106,0.4));
 }
 @keyframes liquidSheen { to { background-position: 280% 0; } }
 
-/* make the common surfaces glassy over the shader background */
-.bg-card { background-color: rgba(18,25,48,0.5) !important; backdrop-filter: blur(14px) saturate(1.35); -webkit-backdrop-filter: blur(14px) saturate(1.35); }
-.bg-panel { background-color: rgba(12,17,36,0.66) !important; backdrop-filter: blur(18px) saturate(1.4); -webkit-backdrop-filter: blur(18px) saturate(1.4); }
-
 /* scrollbar */
 .thin-scroll::-webkit-scrollbar { width: 8px; }
-.thin-scroll::-webkit-scrollbar-thumb { background: #26314f; border-radius: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: #1d2c23; border-radius: 8px; }
 
 /* unit fold animation */
 .fold { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease; }

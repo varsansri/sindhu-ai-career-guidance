@@ -15,12 +15,12 @@ export default function ShaderBg() {
           <ShaderGradient
             control="props"
             type="waterPlane"
-            color1="#0b1020"
-            color2="#5b8cff"
-            color3="#7c5cff"
-            uSpeed={0.16}
-            uDensity={1.4}
-            uStrength={1.7}
+            color1="#060a07"
+            color2="#1fe06a"
+            color3="#c9f23e"
+            uSpeed={0.14}
+            uDensity={1.5}
+            uStrength={1.5}
             uFrequency={5.5}
             grain="on"
             cAzimuthAngle={180}
@@ -34,8 +34,8 @@ export default function ShaderBg() {
           />
         </ShaderGradientCanvas>
       )}
-      {/* readability veil */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,12,26,0.6), rgba(8,12,26,0.82))' }} />
+      {/* readability veil — green-black, keeps white text crisp */}
+      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(120% 90% at 50% 0%, rgba(6,10,7,0.55), rgba(6,10,7,0.86))' }} />
     </div>
   );
 }

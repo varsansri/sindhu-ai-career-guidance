@@ -198,7 +198,7 @@ export default function CoursePage() {
             <div className="text-xs text-mut mt-1">{finishedCount}/{topics.length} pages in {course.short}</div>
             <div className="mt-5 flex gap-2">
               <button onClick={() => setCelebrate(null)} className="flex-1 px-4 py-2 rounded-xl border border-line text-sm">Keep going</button>
-              <Link href="/log" className="flex-1 px-4 py-2 rounded-xl bg-brand text-white text-sm font-semibold">See my journey →</Link>
+              <Link href="/log" className="flex-1 px-4 py-2 rounded-xl bg-brand text-ink text-sm font-semibold">See my journey →</Link>
             </div>
           </div>
         </div>

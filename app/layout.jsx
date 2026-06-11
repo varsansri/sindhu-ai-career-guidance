@@ -15,11 +15,11 @@ export default function RootLayout({ children }) {
       <body>
         <ShaderBg />
         <CopilotProvider>
-          <Nav />
-          {/* reserve right rail space on desktop for the co-pilot */}
+          {/* reserve right rail space on desktop so nav + content share one left edge */}
           <div className="lg:pr-[340px]">
+            <Nav />
             <main className="min-h-screen">{children}</main>
-            <footer className="border-t border-line/60 mt-16 py-8 text-center text-mut text-sm">
+            <footer className="border-t border-line/50 mt-16 py-8 text-center text-mut text-sm">
               © 2026 Sindhu&apos;s AI Career Guidance · Trend-based guidance for fresh graduates.
             </footer>
           </div>

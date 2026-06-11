@@ -75,7 +75,7 @@ export default function Quiz() {
             className="w-full bg-card border border-line rounded-xl px-4 py-3 text-sm outline-none focus:border-brand" />
         </Field>
 
-        <button onClick={compute} className="px-6 py-3 rounded-xl bg-brand text-white font-semibold glow hover:brightness-110 transition">
+        <button onClick={compute} className="px-6 py-3 rounded-xl bg-brand text-ink font-semibold glow hover:brightness-110 transition">
           Show my gap & plan →
         </button>
       </div>

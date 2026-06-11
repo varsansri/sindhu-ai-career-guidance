@@ -77,7 +77,7 @@ export default function LogPage() {
           <input value={note} onChange={(e) => setNote(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && addEntry()}
             placeholder="e.g. Did 5 array problems, started SQL joins"
             className="flex-1 bg-card border border-line rounded-xl px-4 py-2.5 text-sm outline-none focus:border-brand" />
-          <button onClick={addEntry} className="px-4 py-2.5 rounded-xl bg-brand text-white text-sm font-semibold">Log it</button>
+          <button onClick={addEntry} className="px-4 py-2.5 rounded-xl bg-brand text-ink text-sm font-semibold">Log it</button>
         </div>
         <button onClick={getDailyTip} className="mt-3 text-sm text-brand hover:underline inline-flex items-center gap-1.5"><Icon name="spark" size={16} /> What should I do today?</button>
         {loading && <p className="text-mut text-sm mt-2 animate-pulse">Planning your day…</p>}

@@ -60,7 +60,7 @@ export default function Copilot() {
         )}
         {msgs.map((m, i) => (
           <div key={i} className={m.role === 'user' ? 'text-right' : ''}>
-            <div className={`inline-block max-w-[88%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap leading-relaxed ${m.role === 'user' ? 'bg-brand text-white' : 'bg-card border border-line/60'}`}>
+            <div className={`inline-block max-w-[88%] rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap leading-relaxed ${m.role === 'user' ? 'bg-brand text-ink' : 'bg-card border border-line/60'}`}>
               {m.content}
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function Copilot() {
         <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()}
           placeholder="Ask Bee about this…"
           className="flex-1 bg-card border border-line rounded-xl px-3 py-2 text-sm outline-none focus:border-brand" />
-        <button onClick={() => send()} disabled={loading} className="px-3 py-2 rounded-xl bg-brand text-white disabled:opacity-50 grid place-items-center"><Icon name="send" size={18} /></button>
+        <button onClick={() => send()} disabled={loading} className="px-3 py-2 rounded-xl bg-brand text-ink disabled:opacity-50 grid place-items-center"><Icon name="send" size={18} /></button>
       </div>
     </div>
   );
@@ -91,7 +91,7 @@ export default function Copilot() {
 
       {/* Mobile: floating bee + drawer */}
       <button onClick={() => setOpen(true)} aria-label="Open AI co-pilot"
-        className="lg:hidden fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-brand text-white grid place-items-center glow"><Icon name="bee" size={26} /></button>
+        className="lg:hidden fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-brand text-ink grid place-items-center glow"><Icon name="bee" size={26} /></button>
       {open && (
         <div className="lg:hidden fixed inset-0 z-50 flex flex-col">
           <div className="flex-1 bg-black/50" onClick={() => setOpen(false)} />

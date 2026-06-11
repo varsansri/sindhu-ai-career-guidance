@@ -81,7 +81,7 @@ export default function Consultancy() {
 
       <div className="mt-9 rounded-2xl card-grad border border-line/70 p-6 text-center">
         <p className="text-mut">Not sure which band is realistic for you right now?</p>
-        <Link href="/quiz" className="mt-3 inline-block px-5 py-3 rounded-xl bg-brand text-white font-semibold">Find my skill gap →</Link>
+        <Link href="/quiz" className="mt-3 inline-block px-5 py-3 rounded-xl bg-brand text-ink font-semibold">Find my skill gap →</Link>
       </div>
     </div>
   );

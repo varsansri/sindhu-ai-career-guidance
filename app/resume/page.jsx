@@ -63,7 +63,7 @@ export default function ResumePage() {
           <input type="file" accept=".txt,.md" onChange={onFile} className="hidden" />
         </label>
         <button onClick={analyse} disabled={loading}
-          className="px-5 py-2.5 rounded-xl bg-brand text-white font-semibold disabled:opacity-50">
+          className="px-5 py-2.5 rounded-xl bg-brand text-ink font-semibold disabled:opacity-50">
           {loading ? 'Analysing…' : 'Analyse my resume →'}
         </button>
       </div>

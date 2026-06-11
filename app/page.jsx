@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { COURSES, allTopics, topicCount, courseWorth, globalTopicKey } from '@/lib/courses';
 import { useStore, computeWorth, computeStreak, fmtLPA, fmtINR } from '@/lib/store';
 import Icon from '@/components/Icon';
+import LiquidMark from '@/components/LiquidMark';
 
 function worthMap() {
   const m = {};
@@ -27,9 +28,13 @@ export default function Home() {
       </div>
 
       {/* Hero */}
-      <section className="mt-8 sm:mt-12 grid lg:grid-cols-[1.3fr_1fr] gap-8 items-center">
+      <section className="mt-10 sm:mt-14 grid lg:grid-cols-[1.25fr_1fr] gap-10 items-center">
         <div>
-          <h1 className="font-display font-bold leading-[1.05] text-4xl sm:text-5xl">
+          <div className="flex items-center gap-3 mb-5">
+            <LiquidMark size={56} />
+            <span className="label text-[11px] text-brand">AI Career Guidance</span>
+          </div>
+          <h1 className="font-display font-semibold leading-[1.02] tracking-tight text-[2.6rem] sm:text-6xl">
             Just finished college?<br />
             <span className="text-brand">Find the gap</span> between<br />
             where you are and the <span className="text-gold">salary</span> you want.
@@ -39,7 +44,7 @@ export default function Home() {
             so you stop endlessly asking AI and start moving. Finish steps, watch your market worth climb.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/quiz" className="px-5 py-3 rounded-xl bg-brand text-white font-semibold glow hover:brightness-110 transition">
+            <Link href="/quiz" className="px-5 py-3 rounded-xl bg-brand text-ink font-semibold glow hover:brightness-110 transition">
               {started ? 'Continue my plan →' : 'Find my skill gap →'}
             </Link>
             <Link href="/courses" className="px-5 py-3 rounded-xl border border-line text-white font-semibold hover:bg-card transition">
