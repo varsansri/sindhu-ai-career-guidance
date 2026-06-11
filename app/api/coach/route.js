@@ -1,9 +1,16 @@
-// Grok (xAI) career-coach endpoint. Key stays server-side (Vercel env: XAI_API_KEY).
-// Gracefully returns { text: null } when no key is set, so the app still works.
+// AI career-coach endpoint. Works with OpenAI (OPENAI_API_KEY) OR Grok/xAI (XAI_API_KEY) —
+// whichever is set in the Vercel env. Key stays server-side. Returns { text: null } if neither
+// is set, so the app still works.
 export const runtime = 'edge';
 
-const XAI_URL = 'https://api.x.ai/v1/chat/completions';
-const MODEL = process.env.XAI_MODEL || 'grok-2-latest';
+// Provider auto-select: prefer OpenAI (same key as the Hanubees project), fall back to xAI.
+function provider() {
+  if (process.env.OPENAI_API_KEY)
+    return { key: process.env.OPENAI_API_KEY, url: 'https://api.openai.com/v1/chat/completions', model: process.env.OPENAI_MODEL || 'gpt-4o-mini' };
+  if (process.env.XAI_API_KEY)
+    return { key: process.env.XAI_API_KEY, url: 'https://api.x.ai/v1/chat/completions', model: process.env.XAI_MODEL || 'grok-2-latest' };
+  return null;
+}
 
 const fmtL = (n) => (Number(n || 0) / 100000).toFixed(1) + ' LPA';
 
@@ -28,17 +35,17 @@ so they don't have to keep asking AI from scratch. End with one motivating line 
 }
 
 export async function POST(req) {
-  const key = process.env.XAI_API_KEY;
+  const p = provider();
   let body = {};
   try { body = await req.json(); } catch {}
-  if (!key) return Response.json({ text: null, reason: 'no-key' });
+  if (!p) return Response.json({ text: null, reason: 'no-key' });
 
   try {
-    const r = await fetch(XAI_URL, {
+    const r = await fetch(p.url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${key}` },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${p.key}` },
       body: JSON.stringify({
-        model: MODEL,
+        model: p.model,
         temperature: 0.7,
         messages: [
           { role: 'system', content: 'You are a concise, motivating career coach. Use plain text, short lines, no markdown headers.' },
@@ -46,7 +53,7 @@ export async function POST(req) {
         ],
       }),
     });
-    if (!r.ok) return Response.json({ text: null, reason: `xai-${r.status}` });
+    if (!r.ok) return Response.json({ text: null, reason: `ai-${r.status}` });
     const j = await r.json();
     const text = j?.choices?.[0]?.message?.content?.trim() || null;
     return Response.json({ text });
