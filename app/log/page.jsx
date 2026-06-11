@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { COURSES, allTopics, globalTopicKey, courseBySlug } from '@/lib/courses';
 import { useStore, computeWorth, computeStreak, fmtLPA, fmtINR } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 function buildMaps() {
   const worth = {}, title = {}, course = {};
@@ -64,7 +65,7 @@ export default function LogPage() {
       {/* worth + streak */}
       <div className="grid sm:grid-cols-3 gap-4 mt-6">
         <Big label="Market worth" val={ready ? fmtLPA(worth) : '—'} sub={ready ? `${fmtINR(worth)}/yr` : ''} />
-        <Big label="Streak" val={`${streak} 🔥`} sub="days in a row" />
+        <Big label="Streak" val={<span className="inline-flex items-center gap-1.5">{streak}<Icon name="flame" size={22} className="text-gold" /></span>} sub="days in a row" />
         <Big label="Steps finished" val={`${Object.keys(state.done || {}).length}`} sub="across all courses" />
       </div>
 
@@ -78,7 +79,7 @@ export default function LogPage() {
             className="flex-1 bg-card border border-line rounded-xl px-4 py-2.5 text-sm outline-none focus:border-brand" />
           <button onClick={addEntry} className="px-4 py-2.5 rounded-xl bg-brand text-white text-sm font-semibold">Log it</button>
         </div>
-        <button onClick={getDailyTip} className="mt-3 text-sm text-brand hover:underline">🤖 What should I do today?</button>
+        <button onClick={getDailyTip} className="mt-3 text-sm text-brand hover:underline inline-flex items-center gap-1.5"><Icon name="spark" size={16} /> What should I do today?</button>
         {loading && <p className="text-mut text-sm mt-2 animate-pulse">Planning your day…</p>}
         {!loading && tip && <div className="mt-2 text-sm whitespace-pre-wrap leading-relaxed rounded-xl bg-ink/60 border border-line/60 p-3">{tip}</div>}
         {!loading && tip === null && note === '' && (
@@ -101,7 +102,7 @@ export default function LogPage() {
               label={<><span className="text-green font-semibold">You’re worth {fmtLPA(s.worth)}</span> now</>}
               sub={`${s.title} · ${s.course} · ${new Date(s.ts).toLocaleDateString()}`} />
           ))}
-          <Node goal label={`Goal: ${fmtLPA(state.targetWorth || 1200000)}`} sub={worth >= (state.targetWorth || 1200000) ? 'reached 🎯' : `${fmtINR((state.targetWorth || 1200000) - worth)}/yr to go`} />
+          <Node goal label={`Goal: ${fmtLPA(state.targetWorth || 1200000)}`} sub={worth >= (state.targetWorth || 1200000) ? 'goal reached' : `${fmtINR((state.targetWorth || 1200000) - worth)}/yr to go`} />
         </div>
       )}
 

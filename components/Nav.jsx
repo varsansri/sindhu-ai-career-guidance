@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Icon from './Icon';
 
 const LINKS = [
   ['/', 'Home'],
@@ -15,10 +16,11 @@ const LINKS = [
 export default function Nav() {
   const path = usePathname();
   return (
-    <header className="sticky top-0 z-40 backdrop-blur bg-ink/80 border-b border-line/60">
+    <header className="sticky top-0 z-40 backdrop-blur-xl bg-ink/50 border-b border-line/50">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between gap-3">
-        <Link href="/" className="font-display font-bold text-[15px] sm:text-base shrink-0">
-          <span className="text-brand">Sindhu&apos;s</span> AI Career Guidance
+        <Link href="/" className="font-display font-bold text-[15px] sm:text-base shrink-0 flex items-center gap-2">
+          <span className="text-brand"><Icon name="bee" size={22} strokeWidth={1.6} /></span>
+          <span><span className="liquid-logo">Sindhu&apos;s</span> AI Career Guidance</span>
         </Link>
         <nav className="flex items-center gap-1 sm:gap-2 text-[13px] sm:text-sm overflow-x-auto thin-scroll">
           {LINKS.map(([href, label]) => {

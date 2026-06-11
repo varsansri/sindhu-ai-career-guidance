@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { COURSES, courseBySlug, allTopics, globalTopicKey } from '@/lib/courses';
 import { useStore, fmtINR, fmtLPA, computeWorth } from '@/lib/store';
 import { useCopilot } from '@/components/CopilotContext';
+import Icon from '@/components/Icon';
 
 function worthMap() {
   const m = {};
@@ -65,7 +66,7 @@ export default function CoursePage() {
     <aside className="thin-scroll lg:sticky lg:top-14 lg:self-start lg:max-h-[calc(100vh-3.5rem)] overflow-y-auto pr-1">
       <Link href="/courses" className="text-mut text-sm hover:text-white">← All courses</Link>
       <div className="mt-3 flex items-center gap-2">
-        <span className="text-2xl">{course.icon}</span>
+        <span style={{ color: course.accent }}><Icon name={course.icon} size={24} /></span>
         <h2 className="font-display font-bold leading-tight">{course.title}</h2>
       </div>
       <div className="mt-1 text-xs text-mut">{finishedCount}/{topics.length} done · target {fmtLPA(course.salary.target)}</div>
@@ -92,7 +93,7 @@ export default function CoursePage() {
                         <li key={t.slug}>
                           <button onClick={() => goTo(t.slug)}
                             className={`w-full text-left pl-9 pr-3 py-2 text-sm flex items-center gap-2 transition-colors ${tActive ? 'bg-brand/20 text-white' : 'text-mut hover:text-white hover:bg-card'}`}>
-                            <span className={`shrink-0 w-4 ${tDone ? 'text-green' : 'text-line'}`}>{tDone ? '✓' : '○'}</span>
+                            <span className={`shrink-0 grid place-items-center w-4 h-4 ${tDone ? 'text-green' : 'text-line'}`}>{tDone ? <Icon name="check" size={14} strokeWidth={2.4} /> : <span className="w-2.5 h-2.5 rounded-full border border-current" />}</span>
                             <span className="flex-1">{t.title}</span>
                           </button>
                         </li>
@@ -112,8 +113,8 @@ export default function CoursePage() {
     <div className="mx-auto max-w-6xl px-4 py-6">
       {/* mobile worth + sidebar toggle */}
       <div className="lg:hidden flex items-center justify-between mb-4">
-        <button onClick={() => setSidebarOpen((o) => !o)} className="px-3 py-2 rounded-lg border border-line text-sm">
-          ☰ {course.short} units
+        <button onClick={() => setSidebarOpen((o) => !o)} className="px-3 py-2 rounded-lg border border-line text-sm inline-flex items-center gap-2">
+          <Icon name="menu" size={16} /> {course.short} units
         </button>
         <div className="text-sm text-mut">Worth <span className="text-white font-semibold">{ready ? fmtLPA(worth) : '—'}</span></div>
       </div>
@@ -125,21 +126,21 @@ export default function CoursePage() {
         <article className="min-w-0">
           <div className="text-xs text-brand font-semibold uppercase tracking-wider">{active.unit}</div>
           <h1 className="font-display font-bold text-3xl mt-1">{active.title}</h1>
-          <div className="flex gap-3 text-xs text-mut mt-2">
-            <span>⏱ {active.read} min read</span>
+          <div className="flex gap-3 text-xs text-mut mt-2 items-center">
+            <span className="inline-flex items-center gap-1"><Icon name="clock" size={14} /> {active.read} min read</span>
             <span className="text-green">+{fmtINR(active.worth)}/yr on finish</span>
             <span>page {idx + 1} of {topics.length}</span>
           </div>
 
           <p className="mt-5 text-[15px] leading-relaxed">{active.intro}</p>
 
-          <Section title="🧠 Concepts to know">
+          <Section icon="bulb" title="Concepts to know">
             <ul className="space-y-1.5">
               {active.concepts.map((c) => <li key={c} className="flex gap-2"><span className="text-brand">•</span><span>{c}</span></li>)}
             </ul>
           </Section>
 
-          <Section title="✅ Do this, step by step">
+          <Section icon="check" title="Do this, step by step">
             <ol className="space-y-2">
               {active.steps.map((s, i) => (
                 <li key={i} className="flex gap-3">
@@ -150,7 +151,7 @@ export default function CoursePage() {
             </ol>
           </Section>
 
-          <Section title="🔗 Go here (don’t just ask AI)">
+          <Section icon="link" title="Go here (don’t just ask AI)">
             <div className="flex flex-wrap gap-2">
               {active.resources.map((r) => (
                 <a key={r.url} href={r.url} target="_blank" rel="noopener noreferrer"
@@ -164,7 +165,7 @@ export default function CoursePage() {
           {/* Finish bar */}
           <div className="mt-8 rounded-2xl border border-line/70 card-grad p-5 flex items-center justify-between gap-4 flex-wrap">
             <div>
-              <div className="font-semibold">{isDone ? 'Page completed ✓' : 'Done reading & doing this?'}</div>
+              <div className="font-semibold inline-flex items-center gap-2">{isDone && <Icon name="check" size={17} className="text-green" />}{isDone ? 'Page completed' : 'Done reading & doing this?'}</div>
               <div className="text-mut text-sm">{isDone ? 'Counted toward your worth + streak.' : `Click finish to add +${fmtINR(active.worth)}/yr to your worth.`}</div>
             </div>
             {isDone
@@ -185,8 +186,8 @@ export default function CoursePage() {
       {/* Celebrate / worth timeline modal */}
       {celebrate && (
         <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 p-4" onClick={() => setCelebrate(null)}>
-          <div className="rounded-2xl card-grad border border-line glow p-6 max-w-sm w-full text-center" onClick={(e) => e.stopPropagation()}>
-            <div className="text-5xl">🎉</div>
+          <div className="rounded-2xl card-grad glow p-6 max-w-sm w-full text-center" onClick={(e) => e.stopPropagation()}>
+            <div className="mx-auto w-14 h-14 rounded-full bg-gold/15 grid place-items-center text-gold"><Icon name="trophy" size={30} /></div>
             <div className="font-display font-bold text-xl mt-2">Worth unlocked</div>
             <p className="text-mut text-sm mt-1">You finished “{celebrate.title}”.</p>
             <div className="mt-4 flex items-center justify-center gap-3 text-2xl font-display font-bold">
@@ -206,10 +207,10 @@ export default function CoursePage() {
   );
 }
 
-function Section({ title, children }) {
+function Section({ title, icon, children }) {
   return (
     <div className="mt-6">
-      <h3 className="font-semibold text-brand">{title}</h3>
+      <h3 className="font-semibold text-brand inline-flex items-center gap-2">{icon && <Icon name={icon} size={18} />}{title}</h3>
       <div className="mt-2 text-[15px] leading-relaxed">{children}</div>
     </div>
   );

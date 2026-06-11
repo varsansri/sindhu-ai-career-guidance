@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { COURSES } from '@/lib/courses';
 import { useStore } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 export default function ResumePage() {
   const { state } = useStore();
@@ -46,8 +47,8 @@ export default function ResumePage() {
         <div className="flex flex-wrap gap-2">
           {COURSES.map((c) => (
             <button key={c.slug} onClick={() => setField(c.title)}
-              className={`px-3 py-1.5 rounded-xl text-sm border transition ${field === c.title ? 'bg-brand/20 border-brand text-white' : 'bg-card border-line text-mut hover:text-white'}`}>
-              {c.icon} {c.short}
+              className={`px-3 py-1.5 rounded-xl text-sm border transition inline-flex items-center gap-1.5 ${field === c.title ? 'bg-brand/20 border-brand text-white' : 'bg-card border-line text-mut hover:text-white'}`}>
+              <Icon name={c.icon} size={16} /> {c.short}
             </button>
           ))}
         </div>
@@ -57,8 +58,8 @@ export default function ResumePage() {
         placeholder="Paste your resume text here — education, projects, skills, internships, links…"
         className="mt-5 w-full h-44 bg-card border border-line rounded-xl px-4 py-3 text-sm outline-none focus:border-brand resize-y" />
       <div className="mt-2 flex items-center justify-between gap-3 flex-wrap">
-        <label className="text-sm text-mut cursor-pointer hover:text-white">
-          📎 upload .txt
+        <label className="text-sm text-mut cursor-pointer hover:text-white inline-flex items-center gap-1.5">
+          <Icon name="upload" size={16} /> upload .txt
           <input type="file" accept=".txt,.md" onChange={onFile} className="hidden" />
         </label>
         <button onClick={analyse} disabled={loading}
@@ -76,12 +77,12 @@ export default function ResumePage() {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
-            <Box title="💪 Strengths" color="text-green" items={result.strengths} />
-            <Box title="🧩 Gaps to close" color="text-gold" items={result.gaps} />
+            <Box icon="bolt" title="Strengths" color="text-green" items={result.strengths} />
+            <Box icon="puzzle" title="Gaps to close" color="text-gold" items={result.gaps} />
           </div>
 
           <div className="rounded-2xl bg-card border border-line/70 p-5">
-            <div className="text-sm font-semibold text-brand">✅ Next 2 weeks</div>
+            <div className="text-sm font-semibold text-brand inline-flex items-center gap-2"><Icon name="check" size={17} /> Next 2 weeks</div>
             <ol className="mt-2 space-y-2">
               {(result.next || []).map((s, i) => (
                 <li key={i} className="flex gap-3"><span className="shrink-0 w-6 h-6 rounded-full bg-brand/20 text-brand text-xs grid place-items-center font-bold">{i + 1}</span><span className="text-sm">{s}</span></li>
@@ -98,7 +99,7 @@ export default function ResumePage() {
                   <div className="font-semibold">{s.profile}</div>
                   <p className="text-sm mt-2"><span className="text-mut">What they did: </span>{s.did}</p>
                   <p className="text-sm mt-1"><span className="text-green font-semibold">What made it work: </span>{s.worked}</p>
-                  {s.timeline && <div className="text-xs text-mut mt-2">⏳ {s.timeline}</div>}
+                  {s.timeline && <div className="text-xs text-mut mt-2 inline-flex items-center gap-1.5"><Icon name="clock" size={13} /> {s.timeline}</div>}
                 </div>
               ))}
             </div>
@@ -110,10 +111,10 @@ export default function ResumePage() {
   );
 }
 
-function Box({ title, color, items }) {
+function Box({ title, icon, color, items }) {
   return (
     <div className="rounded-2xl bg-card border border-line/70 p-5">
-      <div className={`text-sm font-semibold ${color}`}>{title}</div>
+      <div className={`text-sm font-semibold inline-flex items-center gap-2 ${color}`}>{icon && <Icon name={icon} size={16} />}{title}</div>
       <ul className="mt-2 space-y-1.5">
         {(items || []).map((it, i) => <li key={i} className="flex gap-2 text-sm"><span className="text-mut">•</span><span>{it}</span></li>)}
       </ul>

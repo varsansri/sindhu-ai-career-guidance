@@ -2,6 +2,7 @@ import './globals.css';
 import Nav from '@/components/Nav';
 import { CopilotProvider } from '@/components/CopilotContext';
 import Copilot from '@/components/Copilot';
+import ShaderBg from '@/components/ShaderBg';
 
 export const metadata = {
   title: "Sindhu's AI Career Guidance",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <ShaderBg />
         <CopilotProvider>
           <Nav />
           {/* reserve right rail space on desktop for the co-pilot */}

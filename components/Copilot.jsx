@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useCopilot } from './CopilotContext';
 import { useStore } from '@/lib/store';
+import Icon from './Icon';
 
 export default function Copilot() {
   const { ctx } = useCopilot();
@@ -27,7 +28,7 @@ export default function Copilot() {
       });
       const j = await r.json();
       setMsgs((m) => [...m, { role: 'assistant', content: j.text || (j.reason === 'no-key'
-        ? '🔑 I’m almost ready — add OPENAI_API_KEY in Vercel and I’ll explain anything on your screen.'
+        ? 'I’m almost ready — add OPENAI_API_KEY in Vercel and I’ll explain anything on your screen.'
         : 'Hmm, I couldn’t answer that just now. Try again?') }]);
     } catch {
       setMsgs((m) => [...m, { role: 'assistant', content: 'Network hiccup — try again.' }]);
@@ -42,12 +43,12 @@ export default function Copilot() {
   const Panel = (
     <div className="flex flex-col h-full bg-panel">
       <div className="px-4 py-3 border-b border-line/60 flex items-center gap-2">
-        <span className="text-xl">🐝</span>
+        <span className="text-brand"><Icon name="bee" size={22} /></span>
         <div className="min-w-0">
           <div className="font-semibold text-sm leading-none">Bee — your AI co-pilot</div>
           <div className="text-[11px] text-mut truncate mt-0.5">{ctx.title ? `Watching: ${ctx.title}` : 'Ask me anything as you browse'}</div>
         </div>
-        <button onClick={() => setOpen(false)} className="lg:hidden ml-auto text-mut text-lg px-1">✕</button>
+        <button onClick={() => setOpen(false)} className="lg:hidden ml-auto text-mut px-1"><Icon name="close" size={18} /></button>
       </div>
 
       <div className="flex-1 overflow-y-auto thin-scroll px-3 py-3 space-y-3">
@@ -78,7 +79,7 @@ export default function Copilot() {
         <input value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && send()}
           placeholder="Ask Bee about this…"
           className="flex-1 bg-card border border-line rounded-xl px-3 py-2 text-sm outline-none focus:border-brand" />
-        <button onClick={() => send()} disabled={loading} className="px-3.5 py-2 rounded-xl bg-brand text-white text-sm font-semibold disabled:opacity-50">↑</button>
+        <button onClick={() => send()} disabled={loading} className="px-3 py-2 rounded-xl bg-brand text-white disabled:opacity-50 grid place-items-center"><Icon name="send" size={18} /></button>
       </div>
     </div>
   );
@@ -89,8 +90,8 @@ export default function Copilot() {
       <div className="hidden lg:flex fixed top-14 right-0 bottom-0 w-[340px] border-l border-line/60 z-30">{Panel}</div>
 
       {/* Mobile: floating bee + drawer */}
-      <button onClick={() => setOpen(true)}
-        className="lg:hidden fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-brand text-white text-2xl grid place-items-center glow">🐝</button>
+      <button onClick={() => setOpen(true)} aria-label="Open AI co-pilot"
+        className="lg:hidden fixed bottom-5 right-5 z-40 w-14 h-14 rounded-full bg-brand text-white grid place-items-center glow"><Icon name="bee" size={26} /></button>
       {open && (
         <div className="lg:hidden fixed inset-0 z-50 flex flex-col">
           <div className="flex-1 bg-black/50" onClick={() => setOpen(false)} />

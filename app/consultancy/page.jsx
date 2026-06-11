@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { COURSES } from '@/lib/courses';
 import { fmtLPA } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 const BANDS = [
   {
@@ -68,7 +69,7 @@ export default function Consultancy() {
         {courses.map((c) => (
           <Link key={c.slug} href={`/courses/${c.slug}`}
             className="rounded-2xl border border-line/70 bg-card p-5 hover:border-brand/60 transition flex gap-4">
-            <div className="text-3xl">{c.icon}</div>
+            <div className="shrink-0 w-11 h-11 rounded-xl grid place-items-center bg-brand/15" style={{ color: c.accent }}><Icon name={c.icon} size={24} /></div>
             <div>
               <h3 className="font-semibold">{c.title}</h3>
               <p className="text-mut text-sm mt-1 line-clamp-2">{c.blurb}</p>

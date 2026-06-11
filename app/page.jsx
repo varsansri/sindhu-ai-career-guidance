@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { COURSES, allTopics, topicCount, courseWorth, globalTopicKey } from '@/lib/courses';
 import { useStore, computeWorth, computeStreak, fmtLPA, fmtINR } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 function worthMap() {
   const m = {};
@@ -20,8 +21,8 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4">
       {/* Trend banner */}
-      <div className="mt-5 rounded-xl border border-line/70 card-grad px-4 py-2.5 text-[13px] sm:text-sm flex items-center gap-2 flex-wrap">
-        <span className="text-gold font-semibold">📈 Trend-based</span>
+      <div className="mt-5 rounded-xl liquid-glass px-4 py-2.5 text-[13px] sm:text-sm flex items-center gap-2 flex-wrap">
+        <span className="text-gold font-semibold inline-flex items-center gap-1.5"><Icon name="trend" size={17} /> Trend-based</span>
         <span className="text-mut">career guidance for college-out students — the exact skills you need to earn the salary you expect.</span>
       </div>
 
@@ -61,7 +62,7 @@ export default function Home() {
             <span>goal {fmtLPA(state.targetWorth || 1200000)}</span>
           </div>
           <div className="mt-4 flex gap-4 text-sm">
-            <div><span className="font-bold text-gold">{streak}</span> <span className="text-mut">day streak 🔥</span></div>
+            <div className="inline-flex items-center gap-1.5"><Icon name="flame" size={16} className="text-gold" /><span className="font-bold text-gold">{streak}</span> <span className="text-mut">day streak</span></div>
             <div><span className="font-bold">{doneCount}</span> <span className="text-mut">steps done</span></div>
           </div>
         </div>
@@ -99,8 +100,8 @@ export default function Home() {
         <div className="grid sm:grid-cols-2 gap-4 mt-5">
           {COURSES.map((c) => (
             <Link key={c.slug} href={`/courses/${c.slug}`}
-              className="rounded-2xl border border-line/70 bg-card p-5 hover:border-brand/60 transition flex gap-4">
-              <div className="text-3xl">{c.icon}</div>
+              className="rounded-2xl liquid-glass p-5 hover:border-brand/60 transition flex gap-4">
+              <div className="shrink-0 w-11 h-11 rounded-xl grid place-items-center bg-brand/15" style={{ color: c.accent }}><Icon name={c.icon} size={24} /></div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold">{c.short}</h3>

@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { COURSES, allTopics, topicCount, courseWorth, globalTopicKey } from '@/lib/courses';
 import { useStore, fmtLPA } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 export default function CoursesPage() {
   const { state, ready } = useStore();
@@ -19,9 +20,9 @@ export default function CoursesPage() {
           const pct = Math.round((finished / topics.length) * 100);
           return (
             <Link key={c.slug} href={`/courses/${c.slug}`}
-              className="rounded-2xl border border-line/70 card-grad p-6 hover:border-brand/60 transition glow">
+              className="rounded-2xl card-grad p-6 hover:border-brand/60 transition glow">
               <div className="flex items-start gap-4">
-                <div className="text-4xl">{c.icon}</div>
+                <div className="shrink-0 w-12 h-12 rounded-xl grid place-items-center bg-brand/15" style={{ color: c.accent }}><Icon name={c.icon} size={26} /></div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h2 className="font-display font-bold text-xl">{c.title}</h2>

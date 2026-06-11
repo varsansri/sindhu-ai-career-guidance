@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { COURSES, courseBySlug } from '@/lib/courses';
 import { useStore, fmtLPA, fmtINR } from '@/lib/store';
+import Icon from '@/components/Icon';
 
 const LEVELS = [
   ['none', 'Just graduated, no real skills yet', 250000],
@@ -15,7 +16,7 @@ const TARGETS = [
   ['solid', '₹6–12 LPA — a solid career start', 900000],
   ['high', '₹12+ LPA — high-demand, top pay', 1500000],
 ];
-const INTEREST = COURSES.map((c) => [c.slug, `${c.icon} ${c.short}`]);
+const INTEREST = COURSES.map((c) => [c.slug, c.short, c.icon]);
 const TIME = [['low', '~30 min/day'], ['mid', '1–2 hrs/day'], ['high', '3+ hrs/day']];
 
 export default function Quiz() {
@@ -63,7 +64,7 @@ export default function Quiz() {
           {TARGETS.map(([v, label]) => <Opt key={v} on={a.target === v} onClick={() => set('target', v)}>{label}</Opt>)}
         </Field>
         <Field label="Which field pulls you most?">
-          {INTEREST.map(([v, label]) => <Opt key={v} on={a.interest === v} onClick={() => set('interest', v)}>{label}</Opt>)}
+          {INTEREST.map(([v, label, ic]) => <Opt key={v} on={a.interest === v} onClick={() => set('interest', v)}><span className="inline-flex items-center gap-1.5"><Icon name={ic} size={16} />{label}</span></Opt>)}
         </Field>
         <Field label="How much time can you give daily?">
           {TIME.map(([v, label]) => <Opt key={v} on={a.time === v} onClick={() => set('time', v)}>{label}</Opt>)}
@@ -96,7 +97,7 @@ export default function Quiz() {
           </Link>
 
           <div className="mt-6 border-t border-line/60 pt-5">
-            <div className="text-sm font-semibold text-brand">🤖 Your AI coach plan</div>
+            <div className="text-sm font-semibold text-brand inline-flex items-center gap-2"><Icon name="spark" size={17} /> Your AI coach plan</div>
             {loading && <p className="text-mut text-sm mt-2 animate-pulse">Thinking through your fastest path…</p>}
             {!loading && aiPlan && <div className="text-sm mt-2 whitespace-pre-wrap leading-relaxed">{aiPlan}</div>}
             {!loading && !aiPlan && (
